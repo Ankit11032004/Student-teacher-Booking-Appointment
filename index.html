@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Mentor | Booking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-graduation-cap me-2"></i>Unified Mentor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="home-link"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="teachers-link"><i class="fas fa-chalkboard-teacher me-1"></i> Teachers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="appointments-link"><i class="fas fa-calendar-check me-1"></i> Appointments</a>
+                    </li>
+                    <li class="nav-item dropdown" id="auth-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle me-1"></i> Account
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" id="login-link"><i class="fas fa-sign-in-alt me-2"></i>Login</a></li>
+                            <li><a class="dropdown-item" href="#" id="register-link"><i class="fas fa-user-plus me-2"></i>Register</a></li>
+                            <li class="dropdown-divider d-none" id="admin-divider"></li>
+                            <li><a class="dropdown-item d-none" href="#" id="admin-link"><i class="fas fa-cog me-2"></i>Admin Panel</a></li>
+                            <li class="d-none" id="logout-item"><a class="dropdown-item" href="#" id="logout-link"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container py-4" id="main-content">
+        <!-- Home Section -->
+        <section id="home-section">
+            <div class="hero-section text-center py-5 mb-5">
+                <h1 class="display-4 fw-bold mb-4">Student-Teacher Appointment System</h1>
+                <p class="lead mb-5">Easily schedule meetings with your teachers and manage your academic appointments</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn-primary btn-lg" id="find-teacher-btn">
+                        <i class="fas fa-search me-2"></i>Find a Teacher
+                    </button>
+                    <button class="btn btn-outline-primary btn-lg" id="book-appointment-btn">
+                        <i class="fas fa-calendar-plus me-2"></i>Book Appointment
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <div class="feature-card card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 class="card-title">24/7 Availability</h4>
+                            <p class="card-text">Book appointments anytime, anywhere with our online system.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h4 class="card-title">Instant Notifications</h4>
+                            <p class="card-text">Get real-time updates about your appointments.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card card h-100">
+                        <div class="card-body text-center">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-history"></i>
+                            </div>
+                            <h4 class="card-title">Appointment History</h4>
+                            <p class="card-text">Track all your past and upcoming appointments.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="d-none">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0 text-center">Login to Your Account</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="login-form">
+                                <div class="mb-3">
+                                    <label for="login-email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="login-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="login-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="login-password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember-me">
+                                    <label class="form-check-label" for="remember-me">Remember me</label>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                    </button>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <a href="#" id="forgot-password-link">Forgot password?</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Section -->
+        <section id="register-section" class="d-none">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0 text-center">Create New Account</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="register-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="register-fname" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="register-fname" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="register-lname" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="register-lname" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-email" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="register-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="register-password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-confirm-password" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="register-confirm-password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="register-role" class="form-label">I am a</label>
+                                    <select class="form-select" id="register-role" required>
+                                        <option value="" selected disabled>Select role</option>
+                                        <option value="student">Student</option>
+                                        <option value="teacher">Teacher</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="terms-agree" required>
+                                    <label class="form-check-label" for="terms-agree">I agree to the <a href="#">terms and conditions</a></label>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-user-plus me-2"></i>Register
+                                    </button>
+                                </div>
+                                <div class="text-center mt-3">
+                                    Already have an account? <a href="#" id="login-from-register-link">Login here</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teachers Section -->
+        <section id="teachers-section" class="d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">Available Teachers</h2>
+                <div class="search-box">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search teachers..." id="teacher-search">
+                        <button class="btn btn-outline-secondary" type="button" id="teacher-search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-4" id="teachers-list">
+                <!-- Teachers will be loaded here dynamically -->
+            </div>
+            
+            <nav class="mt-4" id="teachers-pagination">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </section>
+
+        <!-- Teacher Details Modal -->
+        <div class="modal fade" id="teacherModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="teacherModalTitle">Teacher Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <img src="https://via.placeholder.com/200x200?text=Teacher" alt="Teacher" class="img-fluid rounded-circle mb-3" id="teacher-modal-image">
+                                <h4 id="teacher-modal-name">John Doe</h4>
+                                <p class="text-muted" id="teacher-modal-department">Computer Science</p>
+                                <div class="rating mb-3">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                    <span class="ms-2">4.5</span>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h5>About</h5>
+                                <p id="teacher-modal-about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris.</p>
+                                
+                                <h5 class="mt-4">Availability</h5>
+                                <div class="availability-calendar" id="teacher-availability">
+                                    <!-- Availability calendar will be loaded here -->
+                                </div>
+                                
+                                <h5 class="mt-4">Book Appointment</h5>
+                                <form id="appointment-form">
+                                    <input type="hidden" id="appointment-teacher-id">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="appointment-date" class="form-label">Date</label>
+                                            <input type="text" class="form-control" id="appointment-date" placeholder="Select date" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="appointment-time" class="form-label">Time</label>
+                                            <select class="form-select" id="appointment-time" required>
+                                                <option value="" selected disabled>Select time</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="appointment-purpose" class="form-label">Purpose</label>
+                                        <select class="form-select" id="appointment-purpose" required>
+                                            <option value="" selected disabled>Select purpose</option>
+                                            <option value="academic">Academic Consultation</option>
+                                            <option value="project">Project Discussion</option>
+                                            <option value="career">Career Advice</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="appointment-message" class="form-label">Additional Message</label>
+                                        <textarea class="form-control" id="appointment-message" rows="3"></textarea>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-calendar-check me-2"></i>Book Appointment
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments Section -->
+        <section id="appointments-section" class="d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">My Appointments</h2>
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary active" id="upcoming-appointments-btn">Upcoming</button>
+                    <button class="btn btn-outline-primary" id="past-appointments-btn">Past</button>
+                </div>
+            </div>
+            
+            <div class="appointments-tabs">
+                <ul class="nav nav-tabs" id="appointmentsTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="student-tab" data-bs-toggle="tab" data-bs-target="#student-appointments" type="button" role="tab">As Student</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="teacher-tab" data-bs-toggle="tab" data-bs-target="#teacher-appointments" type="button" role="tab">As Teacher</button>
+                    </li>
+                </ul>
+                <div class="tab-content p-3 border border-top-0 rounded-bottom" id="appointmentsTabContent">
+                    <div class="tab-pane fade show active" id="student-appointments" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Teacher</th>
+                                        <th>Date & Time</th>
+                                        <th>Purpose</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="student-appointments-list">
+                                    <!-- Student appointments will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="teacher-appointments" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>Date & Time</th>
+                                        <th>Purpose</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacher-appointments-list">
+                                    <!-- Teacher appointments will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="admin-section" class="d-none">
+            <h2 class="mb-4">Admin Dashboard</h2>
+            
+            <ul class="nav nav-tabs" id="adminTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="teachers-tab" data-bs-toggle="tab" data-bs-target="#admin-teachers" type="button" role="tab">Teachers</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="students-tab" data-bs-toggle="tab" data-bs-target="#admin-students" type="button" role="tab">Students</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="appointments-tab" data-bs-toggle="tab" data-bs-target="#admin-appointments" type="button" role="tab">Appointments</button>
+                </li>
+            </ul>
+            <div class="tab-content p-3 border border-top-0 rounded-bottom" id="adminTabContent">
+                <div class="tab-pane fade show active" id="admin-teachers" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">Manage Teachers</h4>
+                        <button class="btn btn-primary" id="add-teacher-btn">
+                            <i class="fas fa-plus me-2"></i>Add Teacher
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Department</th>
+                                    <th>Email</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-teachers-list">
+                                <!-- Teachers list will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="admin-students" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">Manage Students</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Registration Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-students-list">
+                                <!-- Students list will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="admin-appointments" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="mb-0">All Appointments</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Teacher</th>
+                                    <th>Student</th>
+                                    <th>Date & Time</th>
+                                    <th>Purpose</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-appointments-list">
+                                <!-- All appointments will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Teacher Modal -->
+        <div class="modal fade" id="addTeacherModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add New Teacher</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="add-teacher-form">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="teacher-fname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="teacher-fname" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="teacher-lname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="teacher-lname" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="teacher-email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="teacher-email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="teacher-department" class="form-label">Department</label>
+                                <select class="form-select" id="teacher-department" required>
+                                    <option value="" selected disabled>Select department</option>
+                                    <option value="computer">Computer Science</option>
+                                    <option value="mathematics">Mathematics</option>
+                                    <option value="physics">Physics</option>
+                                    <option value="chemistry">Chemistry</option>
+                                    <option value="biology">Biology</option>
+                                    <option value="english">English</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="teacher-subjects" class="form-label">Subjects</label>
+                                <input type="text" class="form-control" id="teacher-subjects" placeholder="Comma separated list">
+                            </div>
+                            <div class="mb-3">
+                                <label for="teacher-about" class="form-label">About</label>
+                                <textarea class="form-control" id="teacher-about" rows="3"></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save me-2"></i>Save Teacher
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5>Unified Mentor</h5>
+                    <p>Your skill, success & journey</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Home</a></li>
+                        <li><a href="#" class="text-white">Teachers</a></li>
+                        <li><a href="#" class="text-white">Appointments</a></li>
+                        <li><a href="#" class="text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 123 University Ave, Campus</li>
+                        <li><i class="fas fa-phone me-2"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope me-2"></i> info@unifiedmentor.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 Unified Mentor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
